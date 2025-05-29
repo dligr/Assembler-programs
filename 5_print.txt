@@ -1,0 +1,18 @@
+JMP start
+
+N: DB 5
+
+start:
+	MOV D, 232
+	MOV A, [N]
+	CMP A, 0
+	JZ end
+loop:
+	MOV [D], 42
+	CMP A, 1
+	JZ end
+	INC D
+	DEC A
+	JMP loop
+end:
+	HLT

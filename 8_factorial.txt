@@ -1,0 +1,32 @@
+JMP start
+
+n: DB 5
+res: DB 0
+
+factorial:	; [SP+3] is the current number, [SP+2] is the result space
+	MOV A, [SP+3]
+	MOV [SP+2], 1	; base case: the number is 1
+	CMP A, 1
+	JZ return
+	MOV [SP+2], A	; not the base case. remember the current number in [SP+2], then get the result of factorial on number-1
+	DEC A
+	PUSH A
+	PUSH 0
+	CALL factorial
+	POP A	; place the result in A to multiply it
+	POP B
+	MOV B, [SP+2]	; B is the current number that we remembered earlier
+	MUL B
+	MOV [SP+2], A
+return:
+	RET
+
+start:
+	PUSH [n]
+	PUSH 0
+	CALL factorial
+	POP A
+	POP B
+	JMP end
+end:
+	HLT

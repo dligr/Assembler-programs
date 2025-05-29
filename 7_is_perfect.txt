@@ -1,0 +1,47 @@
+JMP start
+
+n: DB 28
+sum: DB 0
+
+is_div:
+	MOV D, [SP+4]
+	MOV A, [SP+4]
+	MOV B, [SP+3]
+	DIV B
+	MUL B
+	MOV C, SP
+	ADD C, 2
+	MOV [C], 1
+	CMP A, D
+	JZ return_div
+	MOV [C], 0
+return_div:
+	RET
+start:
+	MOV B, [n]
+loop:
+	DEC B
+	CMP B, 0
+	JZ end
+	PUSH [n]
+	PUSH B
+	PUSH 0
+	CALL is_div
+	POP A	; A is whether the current number a divisor
+	POP B	; B is the current number
+	POP D	; D is the n
+	CMP A, 0
+	JZ loop
+	MOV C, [sum]
+	ADD C, B
+	MOV [sum], C
+	JMP LOOP
+end:
+	MOV A, [n]
+	MOV B, [sum]
+	MOV [232], '1'
+	CMP A, B
+	JZ uttermost_end
+	MOV [232], '0'
+uttermost_end:
+	HLT

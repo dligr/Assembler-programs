@@ -1,0 +1,24 @@
+JMP start
+
+t: DB "Hello World!"
+DB 0
+
+start:
+	MOV D, 232
+	MOV A, t
+loop:
+	MOV B, [A]
+	CMP B, 0
+	JZ end
+	CMP B, 'a'
+	JC no_conversion
+	CMP B, 'z'
+	JA no_conversion
+	SUB B, 32
+no_conversion:
+	MOV [D], B
+	INC D
+	INC A
+	JMP loop
+end:
+	HLT
