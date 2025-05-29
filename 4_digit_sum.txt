@@ -1,0 +1,21 @@
+JMP start
+
+X: DB 255
+SUM: DB 0
+
+start:
+MOV A, [x]
+MOV C, 0
+MOV D, 0
+cycle:
+MOV B, A
+DIV 10
+MUL 10
+SUB B, A
+ADD C, B
+DIV 10
+CMP A, D
+JZ final
+JMP cycle
+final:
+MOV [SUM], C

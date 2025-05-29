@@ -1,0 +1,18 @@
+JMP start
+
+X: DB 4
+Y: DB 5
+
+start:
+MOV A, [X]
+MOV B, [Y]
+MOV C, 1
+AND A, C
+AND B, C
+MOV C, 48
+CMP A, B
+JC print
+MOV C, 49
+
+print:
+MOV [232], C

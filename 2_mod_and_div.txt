@@ -1,0 +1,16 @@
+JMP start
+
+X: DB 16
+Y: DB 5
+Q: DB 0
+R: DB 0
+
+start:
+MOV A, [x]
+MOV B, [y]
+DIV B
+MOV [Q], A
+MUL B
+MOV B, [x]
+SUB B, A
+MOV [R], B
